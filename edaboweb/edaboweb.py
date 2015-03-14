@@ -4,9 +4,9 @@
 # License: MIT, see LICENSE for details
 from flask import Flask
 
-from blueprints.index import index_bp
-from blueprints.playlist import playlist_bp
-from models import db
+from .blueprints.index import index_bp
+from .blueprints.playlist import playlist_bp
+from .models import db
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://edaboweb@localhost/edaboweb"
