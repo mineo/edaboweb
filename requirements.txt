@@ -1,3 +1,4 @@
 flask==0.10.1
 flask-sqlalchemy==2.0
+flask-uuid==0.2
 psycopg2==2.6
