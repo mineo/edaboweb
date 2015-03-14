@@ -1,0 +1,23 @@
+pkgname=edaboweb-git
+pkgver=1
+pkgrel=1
+pkgdesc=""
+arch=("any")
+url="https://github.com/mineo/edaboweb"
+license=('MIT')
+source=('git+https://github.com/mineo/edaboweb')
+md5sums=('SKIP')
+depends=('python2')
+makedepends=('git')
+
+pkgver(){
+  cd "${srcdir}/edaboweb"
+  echo "$(git describe --tags --always | sed 's/-/./g' )"
+}
+
+package() {
+  cd "${srcdir}/edaboweb"
+  python2 setup.py install --root="$pkgdir" --optimize=1
+}
+
+# vim:set ts=2 sw=2 et:
