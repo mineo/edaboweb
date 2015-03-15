@@ -9,4 +9,26 @@
   This playlist has no description.
   {% endif %}
 </p>
+<div class="list-group">
+  {% for track in playlist.data["tracklist"] %}
+  {% set data = recordings[track.recordingid] %}
+  {% if data is defined %}
+  <div class="list-group-item">
+    <a href="https://musicbrainz.org/
+             {%- if data[3] is none -%}
+             recording/{{ track.recordingid }} "
+       {%- else -%}
+       track/{{ data[2] }}"
+       {% endif %}>
+       <h4 class="list-group-item-heading">
+         {{ data[0] }}
+       </h4>
+    </a>
+    <p class="list-group-item-text">
+      by {{ data[1] }}
+    </p>
+    </div>
+  {% endif %}
+  {% endfor %}
+</div>
 {% endblock %}
