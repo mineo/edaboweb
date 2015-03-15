@@ -1,15 +1,16 @@
 {% extends "base.html" %}
 {% set active_page = 'playlists' %}
 {% block content %}
-<h1>{{ playlist.data["name"] }}</h1>
-<p class="lead">
+<h1 class="page-header">
+  {{ playlist.data["name"] }}
+  <small>
   {% if playlist.data["description"] %}
   {{ playlist.data["description"] }}
   {% else %}
   This playlist has no description.
   {% endif %}
-</p>
-<div class="list-group">
+  </small>
+</h1>
   {% for track in playlist.data["tracklist"] %}
   {% set data = recordings[track.recordingid] %}
   {% if data is defined %}
