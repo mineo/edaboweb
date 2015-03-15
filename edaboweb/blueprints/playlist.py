@@ -21,7 +21,22 @@ def list_playlists():
 @playlist_bp.route("/<uuid:pid>", methods=["GET"])
 def view_playlist(pid):
     playlist = Playlist.query.filter(Playlist.gid == str(pid)).first_or_404()
-    return render_template("playlist/single.html", playlist=playlist)
+
+    recording_ids = [itemgetter("recordingid")(track)
+                     for track in playlist.data["tracklist"]]
+    recording_query = db_session().query(models.Recording.name,
+                                         models.Recording.gid,
+                                         models.ArtistCredit.name,
+                                         models.Track.gid).\
+        join(models.Track).\
+        join(models.ArtistCredit).\
+        filter(models.Recording.gid.in_(recording_ids))
+    recordings = {}
+    for name, recordingid, credit, trackid in recording_query.all():
+        recordings[recordingid] = (name, credit, trackid)
+    return render_template("playlist/single.html",
+                           playlist=playlist,
+                           recordings=recordings)
 
 
 @playlist_bp.route("/<uuid:pid>", methods=["POST"])
