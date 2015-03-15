@@ -2,30 +2,26 @@
 {% set active_page = 'playlists' %}
 {% block content %}
 
-<table class="table table-bordered table-striped">
+<table class="table table-bordered table-striped table-hover">
   <thead>
     <tr>
+      <th>#</th>
       <th>Name</th>
-      <th>UUID</th>
       <th>Items</th>
     </tr>
   </thead>
   <tbody>
+    {% for description, name, gid in playlists %}
     <tr>
-      <td>foo</td>
-      <td>foo</td>
-      <td>foo</td>
+      <th scope="row">{{ loop.index }}</th>
+      <td>
+        <a href="{{ url_for('playlist.list_playlists') }}{{ gid }}">
+          {{ name }}
+        </a>
+      </td>
+      <td>0</td>
     </tr>
-    <tr>
-      <td>foo</td>
-      <td>foo</td>
-      <td>foo</td>
-    </tr>
-    <tr>
-      <td>foo</td>
-      <td>foo</td>
-      <td>foo</td>
-    </tr>
+    {% endfor %}
   </tbody>
 </table>
 

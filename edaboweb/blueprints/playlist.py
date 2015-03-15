@@ -12,7 +12,10 @@ playlist_bp = Blueprint("playlist", __name__)
 
 @playlist_bp.route("/")
 def list_playlists():
-    return render_template("playlist/list.html")
+    playlists = db.session.query(Playlist.data["description"],
+                                 Playlist.data["name"],
+                                 Playlist.gid)
+    return render_template("playlist/list.html", playlists=playlists)
 
 
 @playlist_bp.route("/<uuid:pid>", methods=["GET"])
