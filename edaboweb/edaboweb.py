@@ -11,7 +11,8 @@ from .models import db
 
 app = Flask(__name__)
 FlaskUUID(app)
-app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://edaboweb@localhost/edaboweb"
+app.config["SQLALCHEMY_DATABASE_URI"] = \
+    "postgresql://edaboweb@localhost/edaboweb"
 app.register_blueprint(index_bp)
 app.register_blueprint(playlist_bp, url_prefix="/playlist")
 db.init_app(app)
