@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% set active_page = 'playlists' %}
+{% block content %}
+<h1>{{ playlist.data["name"] }}</h1>
+<p class="lead">
+  {% if playlist.data["description"] %}
+  {{ playlist.data["description"] }}
+  {% else %}
+  This playlist has no description.
+  {% endif %}
+</p>
+{% endblock %}
