@@ -3,6 +3,7 @@
 # Copyright © 2015 Wieland Hoffmann
 # License: MIT, see LICENSE for details
 from flask import Flask
+from flask.ext.bootstrap import Bootstrap
 from flask.ext.uuid import FlaskUUID
 from sqlalchemy import create_engine
 
@@ -12,6 +13,7 @@ from .models import db
 from .mb_database import db_session
 
 app = Flask(__name__)
+Bootstrap(app)
 FlaskUUID(app)
 app.config["SQLALCHEMY_DATABASE_URI"] = \
     "postgresql://edaboweb@localhost/edaboweb"
