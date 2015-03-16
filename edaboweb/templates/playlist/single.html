@@ -1,5 +1,21 @@
 {% extends "base.html" %}
 {% set active_page = 'playlists' %}
+{% block scripts %}
+
+{{ super() }}
+<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+<script type="text/javascript">
+  function fixImage(event) {
+      $(event.target).attr("src", "{{ url_for('static', filename='disc.svg')}}");
+  }
+
+  function fallbackImages() {
+      $(".cover").on("error", fixImage);
+  }
+  fallbackImages();
+</script>
+{% endblock %}
+
 {% block innercontent %}
 <h1 class="page-header">
   {{ playlist.data["name"] }}
@@ -40,9 +56,6 @@
         </a>
         <p>
           by {{ data[1] }}
-        </p>
-        <p>
-          let's see
         </p>
       </div>
       {% endif %}
