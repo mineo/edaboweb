@@ -14,36 +14,39 @@
 <ul class="list-group">
   {% for track in playlist.data["tracklist"] %}
   <li class="list-group-item">
-  <div class="media">
-  {% set data = recordings[track.recordingid] %}
-  {% if data is defined %}
-  {% if release_ids[track.recordingid] is none %}
-  <div class="media-left media-middle glyphicon glyphicon-music">
-  </div>
-  {% else %}
-  <div class="media-left">
-    <img
-     class="cover"
-     src="//coverartarchive.org/release/{{ release_ids[track.recordingid] }}/front-250"/>
-  </div>
-  {% endif %}
-  <div class="media-body">
-    <a href="https://musicbrainz.org/
-             {%- if data[3] is none -%}
-             recording/{{ track.recordingid }} "
-       {%- else -%}
-       track/{{ data[2] }}"
-       {% endif %}>
-       <h4 class="media-heading">
-         {{ data[0] }}
-       </h4>
-    </a>
-    <p>
-      by {{ data[1] }}
-    </p>
-  </div>
-  {% endif %}
-  </div>
+    <div class="media">
+    {% set data = recordings[track.recordingid] %}
+    {% if data is defined %}
+      {% if release_ids[track.recordingid] is none %}
+        <div class="media-left media-middle glyphicon glyphicon-music">
+        </div>
+      {% else %}
+        <div class="media-left">
+          <img
+             class="cover"
+             src="//coverartarchive.org/release/{{ release_ids[track.recordingid] }}/front-250"/>
+        </div>
+      {% endif %}
+      <div class="media-body">
+        <a href="https://musicbrainz.org/
+                 {%- if data[3] is none -%}
+                 recording/{{ track.recordingid }} "
+                 {%- else -%}
+                 track/{{ data[2] }}"
+                 {% endif %}>
+                 <h4 class="media-heading">
+                   {{ data[0] }}
+                 </h4>
+        </a>
+        <p>
+          by {{ data[1] }}
+        </p>
+        <p>
+          let's see
+        </p>
+      </div>
+      {% endif %}
+    </div>
   </li>
   {% endfor %}
 </ul>
