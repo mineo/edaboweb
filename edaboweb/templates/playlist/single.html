@@ -17,8 +17,16 @@
   <div class="media">
   {% set data = recordings[track.recordingid] %}
   {% if data is defined %}
+  {% if release_ids[track.recordingid] is none %}
   <div class="media-left media-middle glyphicon glyphicon-music">
   </div>
+  {% else %}
+  <div class="media-left">
+    <img
+     class="cover"
+     src="//coverartarchive.org/release/{{ release_ids[track.recordingid] }}/front-250"/>
+  </div>
+  {% endif %}
   <div class="media-body">
     <a href="https://musicbrainz.org/
              {%- if data[3] is none -%}

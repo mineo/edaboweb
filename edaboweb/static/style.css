@@ -3,3 +3,8 @@
 body {
     font-family: 'Vollkorn', serif;
 }
+
+.cover {
+    width: 65px;
+    height: 65px;
+}
