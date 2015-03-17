@@ -32,20 +32,20 @@
   <li class="list-group-item">
     <div class="media">
     {% set data = recordings[track.recordingid] %}
-    {% if data is defined %}
-      {% if release_ids[track.recordingid] is none %}
-        <div class="media-left">
-            <img class="cover"
-                 src="{{ url_for('static', filename='disc.svg') }}" />
-        </div>
-      {% else %}
-        <div class="media-left">
-          <img
-             class="cover"
-             src="//coverartarchive.org/release/{{ release_ids[track.recordingid] }}/front-250"/>
-        </div>
-      {% endif %}
+    {% if release_ids[track.recordingid] is none %}
+      <div class="media-left">
+          <img class="cover"
+               src="{{ url_for('static', filename='disc.svg') }}" />
+      </div>
+    {% else %}
+      <div class="media-left">
+        <img
+           class="cover"
+           src="//coverartarchive.org/release/{{ release_ids[track.recordingid] }}/front-250"/>
+      </div>
+    {% endif %}
       <div class="media-body">
+      {% if data is defined %}
         <a href="https://musicbrainz.org/
                  {%- if data[2] is none -%}
                  recording/{{ track.recordingid }} "
@@ -59,8 +59,13 @@
         <p>
           by {{ data[1] }}
         </p>
-      </div>
+      {% else %}
+        <h4 class="media-heading">Sorry</h4>
+        <p>
+          we don't have data for {{ track.recordingid }} yet.
+        </p>
       {% endif %}
+      </div>
     </div>
   </li>
   {% endfor %}
