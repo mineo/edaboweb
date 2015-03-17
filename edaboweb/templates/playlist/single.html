@@ -34,7 +34,9 @@
     {% set data = recordings[track.recordingid] %}
     {% if data is defined %}
       {% if release_ids[track.recordingid] is none %}
-        <div class="media-left media-middle glyphicon glyphicon-music">
+        <div class="media-left">
+            <img class="cover"
+                 src="{{ url_for('static', filename='disc.svg') }}" />
         </div>
       {% else %}
         <div class="media-left">
