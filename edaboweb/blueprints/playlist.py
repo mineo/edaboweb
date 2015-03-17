@@ -36,8 +36,9 @@ def view_playlist(pid):
                                          models.Recording.gid,
                                          models.ArtistCredit.name,
                                          models.Track.gid).\
-        join(models.Track).\
-        join(models.ArtistCredit).\
+        outerjoin(models.Track).\
+        join(models.ArtistCredit,
+             models.Recording.artist_credit_id == models.ArtistCredit.id).\
         filter(models.Recording.gid.in_(recording_ids))
     recordings = {}
     for name, recordingid, credit, trackid in recording_query.all():
