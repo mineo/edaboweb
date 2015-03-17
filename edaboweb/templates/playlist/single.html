@@ -45,7 +45,7 @@
       {% endif %}
       <div class="media-body">
         <a href="https://musicbrainz.org/
-                 {%- if data[3] is none -%}
+                 {%- if data[2] is none -%}
                  recording/{{ track.recordingid }} "
                  {%- else -%}
                  track/{{ data[2] }}"
