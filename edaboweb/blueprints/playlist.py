@@ -26,21 +26,22 @@ def view_playlist(pid):
 
     recording_ids = []
     release_ids = {}
+    track_ids = {}
     for track in playlist.data["tracklist"]:
         recording_id = track["recordingid"]
         recording_ids.append(recording_id)
         release_ids[recording_id] = track["releaseid"]
+        track_ids[recording_id] = track.get("releasetrackid", None)
     recording_query = db_session().query(models.Recording.name,
                                          models.Recording.gid,
-                                         models.ArtistCredit.name,
-                                         models.Track.gid).\
-        outerjoin(models.Track).\
+                                         models.ArtistCredit.name).\
         join(models.ArtistCredit,
              models.Recording.artist_credit_id == models.ArtistCredit.id).\
         filter(models.Recording.gid.in_(recording_ids))
     recordings = {}
-    for name, recordingid, credit, trackid in recording_query.all():
-        recordings[recordingid] = (name, credit, trackid)
+    for name, recordingid, credit in recording_query.all():
+        recordings[recordingid] = (name, credit,
+                                   track_ids.get(recordingid, None))
     return render_template("playlist/single.html",
                            playlist=playlist,
                            recordings=recordings,
