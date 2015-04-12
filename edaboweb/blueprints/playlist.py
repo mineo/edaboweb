@@ -50,7 +50,7 @@ def view_playlist(pid):
 
 @playlist_bp.route("/<uuid:pid>", methods=["POST"])
 def add_playlist(pid):
-    doc = request.get_data()
+    doc = request.values["playlist"]
     json = loads(doc.encode("utf-8"))
 
     uuid_from_doc = UUID(json["uuid"])
