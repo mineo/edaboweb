@@ -16,7 +16,10 @@ playlist_bp = Blueprint("playlist", __name__)
 def list_playlists():
     playlists = db.session.query(Playlist.data["description"],
                                  Playlist.data["name"],
-                                 Playlist.gid)
+                                 Playlist.gid,
+                                 func.jsonb_array_length(
+                                     Playlist.data["tracklist"])
+                                 )
     return render_template("playlist/list.html", playlists=playlists)
 
 
