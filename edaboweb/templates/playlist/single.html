@@ -12,25 +12,46 @@
  function fallbackImages() {
      $(".cover").on("error", fixImage);
  }
+
  fallbackImages();
+
+
+ function changeCoverSize(howMuch) {
+     change = function () {
+         $(".cover").width(
+             function(idx, oldWidth){
+                 $(this).width(oldWidth + howMuch);
+             });
+     }
+     return change;
+ }
+
+ $("#inc-covers").click(changeCoverSize(50));
+ $("#dec-covers").click(changeCoverSize(-50));
 </script>
 {% endblock %}
 
 {% block innercontent %}
 <h1 class="page-header">
-  {{ playlist.data["name"] }}
-  <small>
-  {% if playlist.data["description"] %}
-  {{ playlist.data["description"] }}
-  {% else %}
-  This playlist has no description.
-  {% endif %}
-  </small>
-</h1>
+    <div class="row">
+        <div class="col-md-10">
+            {{ playlist.data["name"] }}
+            <small>
+                {% if playlist.data["description"] %}
+                {{ playlist.data["description"] }}
+                {% else %}
+                This playlist has no description.
+                {% endif %}
+            </small>
+        </div>
+        <div class="col-md-2">
+            <a href="#" id="inc-covers" class="glyphicon glyphicon-plus-sign">
+            </a>
+            <a href="#" id="dec-covers" class="glyphicon glyphicon-minus-sign">
+            </a>
+        </div>
     </div>
-  </li>
-  {% endfor %}
-</ul>
+</h1>
 {% for release, tracks in releases.iteritems() %}
 <div class="panel panel-default"">
     <div class="panel-heading">
