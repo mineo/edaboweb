@@ -7,6 +7,7 @@ from json import loads
 from mbdata import models
 from sqlalchemy import func
 from uuid import UUID
+from ..util import OrderedDefaultDict
 from ..mb_database import db_session
 from ..models import db, Playlist
 
@@ -29,13 +30,14 @@ def view_playlist(pid):
     playlist = Playlist.query.filter(Playlist.gid == str(pid)).first_or_404()
 
     recording_ids = []
-    release_ids = {}
+    releases = OrderedDefaultDict(lambda: list())
     track_ids = {}
     for track in playlist.data["tracklist"]:
         recording_id = track["recordingid"]
         recording_ids.append(recording_id)
-        release_ids[recording_id] = track["releaseid"]
         track_ids[recording_id] = track.get("releasetrackid", None)
+        releases[track["releaseid"]].append(track)
+
     recording_query = db_session().query(models.Recording.name,
                                          models.Recording.gid,
                                          models.ArtistCredit.name).\
@@ -49,7 +51,7 @@ def view_playlist(pid):
     return render_template("playlist/single.html",
                            playlist=playlist,
                            recordings=recordings,
-                           release_ids=release_ids)
+                           releases=releases)
 
 
 @playlist_bp.route("/<uuid:pid>", methods=["POST"])
