@@ -37,7 +37,7 @@ def view_playlist(pid):
         recording_id = track["recordingid"]
         recording_ids.append(recording_id)
         release_ids[recording_id] = track["releaseid"]
-        track_ids[recording_id] = track.get("releasetrackid", None)
+        track_ids[recording_id] = track["releasetrackid"]
     recording_query = db_session().query(models.Recording.name,
                                          models.Recording.gid,
                                          models.ArtistCredit.name).\
