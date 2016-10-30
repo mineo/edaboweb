@@ -5,10 +5,12 @@
 from flask import abort, Blueprint, redirect, request, render_template, url_for
 from json import loads
 from mbdata import models
+from schema import SchemaError
 from sqlalchemy import func
-from uuid import UUID
+from werkzeug.exceptions import BadRequest
 from ..mb_database import db_session
 from ..db_models import db, Playlist
+from ..ws_models import Playlist as WsPlaylist
 
 playlist_bp = Blueprint("playlist", __name__)
 
@@ -57,7 +59,12 @@ def add_playlist(pid):
     doc = request.values["playlist"]
     json = loads(doc.encode("utf-8"))
 
-    uuid_from_doc = UUID(json["uuid"])
+    try:
+        playlist = WsPlaylist.validate(json)
+    except SchemaError as e:
+        raise BadRequest(description=e.message)
+
+    uuid_from_doc = playlist["uuid"]
     if uuid_from_doc != pid:
         abort(400)
 
@@ -66,6 +73,7 @@ def add_playlist(pid):
         playlist = Playlist(gid=str(pid), data=json)
     else:
         playlist.data = json
+
     db.session.add(playlist)
     db.session.commit()
     return redirect(url_for('playlist.list_playlists'))

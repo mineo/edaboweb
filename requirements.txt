@@ -4,3 +4,4 @@ flask-sqlalchemy==2.0
 flask-uuid==0.2
 mbdata==2015.1.10
 psycopg2==2.6
+schema==0.6.5
