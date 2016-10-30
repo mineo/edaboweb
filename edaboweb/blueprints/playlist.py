@@ -8,7 +8,7 @@ from mbdata import models
 from sqlalchemy import func
 from uuid import UUID
 from ..mb_database import db_session
-from ..models import db, Playlist
+from ..db_models import db, Playlist
 
 playlist_bp = Blueprint("playlist", __name__)
 

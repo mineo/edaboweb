@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
-# Copyright © 2015 Wieland Hoffmann
+# Copyright © 2015, 2016 Wieland Hoffmann
 # License: MIT, see LICENSE for details
 from flask import Flask
 from flask.ext.bootstrap import Bootstrap
@@ -9,7 +9,7 @@ from sqlalchemy import create_engine
 
 from .blueprints.index import index_bp
 from .blueprints.playlist import playlist_bp
-from .models import db
+from .db_models import db
 from .mb_database import db_session
 
 app = Flask(__name__)

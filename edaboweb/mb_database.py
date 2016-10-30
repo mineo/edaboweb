@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
-# Copyright © 2015 Wieland Hoffmann
+# Copyright © 2015, 2016 Wieland Hoffmann
 # License: MIT, see LICENSE for details
 from mbdata import models
 from sqlalchemy.orm import relationship, scoped_session, sessionmaker
