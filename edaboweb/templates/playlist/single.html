@@ -21,6 +21,9 @@
          $(".cover").width(
              function(idx, oldWidth){
                  $(this).width(oldWidth + howMuch);
+             }).height(
+             function(idx, oldHeight){
+                 $(this).height(oldHeight + howMuch);
              });
      }
      return change;
